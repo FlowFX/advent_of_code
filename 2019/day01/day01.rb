@@ -34,11 +34,12 @@ end
 
 def fuel_per_mass_including_mass_of_fule(mass)
   total = 0
-  input = mass
+  fuel = mass
 
-  while (fuel = fuel_per_mass(input)).positive?
+  loop do
+    fuel = fuel_per_mass(fuel)
     total += fuel
-    input = fuel
+    break if fuel.zero?
   end
 
   total
