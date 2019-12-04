@@ -23,7 +23,7 @@ def day01_input
 end
 
 def fuel_per_mass(mass)
-  (mass.to_i / 3.to_f).floor - 2
+  (mass.to_i / 3).floor - 2
 end
 
 def fuel_required(input)
