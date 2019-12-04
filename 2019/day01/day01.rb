@@ -29,7 +29,7 @@ def day01_input
 end
 
 def fuel_per_mass(mass)
-  [(mass.to_i / 3).floor - 2, 0].max
+  [mass.to_i / 3 - 2, 0].max
 end
 
 def fuel_per_mass_including_mass_of_fule(mass)
