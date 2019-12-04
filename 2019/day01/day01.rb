@@ -9,6 +9,12 @@ class TestDay01 < MiniTest::Test
     assert_equal 2, fuel_per_mass(14)
     assert_equal 654, fuel_per_mass(1969)
     assert_equal 33_583, fuel_per_mass(100_756)
+    assert_equal 0, fuel_per_mass(2)
+  end
+
+  def test_fuel_per_module_including_mass_of_fuel
+    assert_equal 966, fuel_per_mass_including_mass_of_fule(1969)
+    assert_equal 50_346, fuel_per_mass_including_mass_of_fule(100_756)
   end
 
   def test_total_fuel
@@ -23,11 +29,28 @@ def day01_input
 end
 
 def fuel_per_mass(mass)
-  (mass.to_i / 3).floor - 2
+  [(mass.to_i / 3).floor - 2, 0].max
+end
+
+def fuel_per_mass_including_mass_of_fule(mass)
+  total = 0
+  input = mass
+
+  while (fuel = fuel_per_mass(input)).positive?
+    total += fuel
+    input = fuel
+  end
+
+  total
 end
 
 def fuel_required(input)
   input.sum { |x| fuel_per_mass(x) }
 end
 
+def fuel_required_including_mass_of_fuel(input)
+  input.sum { |x| fuel_per_mass_including_mass_of_fule(x) }
+end
+
 puts 'Total fuel required: ', fuel_required(day01_input)
+puts 'Total fuel required, including fuel for the fuel: ', fuel_required_including_mass_of_fuel(day01_input)
